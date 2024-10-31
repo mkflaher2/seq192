@@ -407,19 +407,41 @@ MainWindow::on_key_press(GdkEventKey* event)
         case GDK_KEY_Down:
         case GDK_KEY_Left:
         case GDK_KEY_Right:
+        case GDK_KEY_h:
+        case GDK_KEY_j:
+        case GDK_KEY_k:
+        case GDK_KEY_l:
         {
             int pos = -1;
             if (get_focus_sequence() == NULL) {
-                if (event->keyval == GDK_KEY_Down) pos = 0;
-                else if (event->keyval == GDK_KEY_Up) pos = c_mainwnd_rows - 1;
-                else if (event->keyval == GDK_KEY_Left) pos = c_mainwnd_cols - 1;
-                else if (event->keyval == GDK_KEY_Right) pos = 0;
+                if (event->keyval == GDK_KEY_Down
+                    || event->keyval == GDK_KEY_j)
+                    pos = 0;
+                else if (event->keyval == GDK_KEY_Up
+                        || event->keyval == GDK_KEY_k)
+                        pos = c_mainwnd_rows - 1;
+                else if (event->keyval == GDK_KEY_Left
+                        || event->keyval == GDK_KEY_h)
+                        pos = c_mainwnd_cols - 1;
+                else if (event->keyval == GDK_KEY_Right
+                        || event->keyval == GDK_KEY_l)
+                        pos = 0;
             } else {
                 pos = get_focus_sequence()->m_seqpos;
-                if (event->keyval == GDK_KEY_Down && pos % c_mainwnd_rows != (c_mainwnd_rows - 1)) pos++;
-                else if (event->keyval == GDK_KEY_Up && pos % c_mainwnd_rows != 0) pos--;
-                else if (event->keyval == GDK_KEY_Left) pos -= c_mainwnd_rows;
-                else if (event->keyval == GDK_KEY_Right) pos += c_mainwnd_rows;
+                if ((event->keyval == GDK_KEY_Down
+                    || event->keyval == GDK_KEY_j)
+                    && pos % c_mainwnd_rows != (c_mainwnd_rows - 1))
+                    pos++;
+                else if ((event->keyval == GDK_KEY_Up
+                        || event->keyval == GDK_KEY_k)
+                        && pos % c_mainwnd_rows != 0)
+                        pos--;
+                else if (event->keyval == GDK_KEY_Left
+                        || event->keyval == GDK_KEY_h)
+                        pos -= c_mainwnd_rows;
+                else if (event->keyval == GDK_KEY_Right
+                        || event->keyval == GDK_KEY_l)
+                        pos += c_mainwnd_rows;
             }
             if (pos >= 0 && pos < c_seqs_in_set) {
                 m_sequence_keyboard_nav = true;
@@ -428,6 +450,19 @@ MainWindow::on_key_press(GdkEventKey* event)
             return true;
             break;
         }
+
+        case GDK_KEY_P:
+        case GDK_KEY_p:
+            if (get_focus_sequence() != NULL) {
+                get_focus_sequence()->toggle_sequence_play();
+            }
+            break;
+        case GDK_KEY_Q:
+        case GDK_KEY_q:
+            if (get_focus_sequence() != NULL) {
+                get_focus_sequence()->toggle_sequence_queue();
+            }
+            break;
         case GDK_KEY_Delete:
             if (get_focus_sequence() != NULL)
                 get_focus_sequence()->menu_callback(MENU_DELETE, 0, 0);

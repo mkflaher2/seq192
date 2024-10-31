@@ -53,6 +53,8 @@ class SequenceButton : public DrawingArea {
         int get_last_sequence_number();
         bool set_active(bool active);
         void set_last_sequence_number();
+        void toggle_sequence_play();
+        void toggle_sequence_queue();
         void draw_background();
         void update();
 

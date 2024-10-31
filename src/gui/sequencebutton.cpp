@@ -17,6 +17,7 @@
 #include "sequencebutton.h"
 #include "editwindow.h"
 #include "../core/globals.h"
+#include <stdio.h>
 
 SequenceButton::SequenceButton(perform * p, MainWindow * m, int seqpos)
 {
@@ -83,6 +84,22 @@ SequenceButton::set_active(bool active) {
     bool changed = active != m_active;
     m_active = active;
     return changed;
+}
+
+void
+SequenceButton::toggle_sequence_play() {
+    sequence * seq = get_sequence();
+    if (seq != NULL)
+        seq->toggle_playing();
+    queue_draw();
+}
+
+void
+SequenceButton::toggle_sequence_queue() {
+    sequence * seq = get_sequence();
+    if (seq != NULL)
+        seq->toggle_queued(m_perform->get_reference_sequence());
+    queue_draw();
 }
 
 void

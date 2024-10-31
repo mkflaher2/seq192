@@ -828,6 +828,7 @@ void perform::stop_jack(  )
     //printf( "perform::stop_jack()\n" );
     if( m_jack_running ) {
         jack_transport_stop (m_jack_client);
+        position_jack();
     }
 }
 
