@@ -343,6 +343,11 @@ MainWindow::MainWindow(perform * p, Glib::RefPtr<Gtk::Application> app)
     m_sequence_grid.set_focus_vadjustment(m_scroll_wrapper.get_vadjustment());
     m_scroll_wrapper.add(m_sequence_grid);
 
+    // sequence shortcuts
+    for (int i = 0; i < 10; i++) {
+        sequence_shortcuts[i] = m_sequences[i];
+    }
+
     // main layout packing
     m_vbox.pack_start(m_menu, false, false);
     m_vbox.pack_start(m_toolbar, false, false);
@@ -463,6 +468,24 @@ MainWindow::on_key_press(GdkEventKey* event)
                 get_focus_sequence()->toggle_sequence_queue();
             }
             break;
+        case GDK_KEY_0:
+        case GDK_KEY_1:
+        case GDK_KEY_2:
+        case GDK_KEY_3:
+        case GDK_KEY_4:
+        case GDK_KEY_5:
+        case GDK_KEY_6:
+        case GDK_KEY_7:
+        case GDK_KEY_8:
+        case GDK_KEY_9:
+            {
+                gint idx = (event->keyval - GDK_KEY_0 + 9) % 10;
+                if (event->state & GDK_CONTROL_MASK && get_focus_sequence() != NULL)
+                    sequence_shortcuts[idx] = get_focus_sequence();
+                else
+                    sequence_shortcuts[idx]->toggle_sequence_play();
+                break;
+            }
         case GDK_KEY_Delete:
             if (get_focus_sequence() != NULL)
                 get_focus_sequence()->menu_callback(MENU_DELETE, 0, 0);

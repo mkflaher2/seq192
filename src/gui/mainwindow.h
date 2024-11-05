@@ -144,6 +144,9 @@ class MainWindow : public Window {
         void set_focus_sequence(SequenceButton *s);
         SequenceButton* get_focus_sequence(){return m_sequence_focus;};
 
+        // sequence shortcuts
+        SequenceButton* sequence_shortcuts[10];
+
         // edit
         void open_edit_window(int seqnum, sequence * seq);
         void close_edit_window(int seqnum);

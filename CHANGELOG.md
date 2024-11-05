@@ -1,5 +1,13 @@
 # Changelog
 
+## IN PROGRESS (fork)
+- hjkl navitation
+- number key shortcuts
+    - ctrl + num to save a sequence button to a shortcut
+    - num key to toggle saved shortcut
+    - by default, the first button in each row is assigned to each respective number key
+    - TODO: queueing for shortcuts, solo/all on/all off keys
+
 ## 1.6.0
 
 - edit window
